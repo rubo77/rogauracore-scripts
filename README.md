@@ -35,3 +35,13 @@ increases the brightness of the keyboard backlight by 1
 cd /usr/local/sbin
 ln -s /path/to/keyboard_backlight_daytime.sh .
 ```
+
+### kernel LED class note
+
+On kernel >= 6.11 ASUS laptops expose `asus::kbd_backlight` as a LED class
+device (`/sys/class/leds/asus::kbd_backlight/brightness`, values 0-3, driver
+`asus-nb-wmi`). If that brightness is 0 the keyboard stays dark no matter which
+color rogauracore writes to the MCU - that is why the script writes `3` there
+once per boot (marker file: `/run/kbd_backlight_initialized`). While an
+off-flag `/run/user/<uid>/kbd_backlight_off` exists (written by
+`rogauracore_toggle.sh`) that write is skipped.

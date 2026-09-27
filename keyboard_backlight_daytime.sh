@@ -127,6 +127,19 @@ for ((i = 0; i < ${#interpolated_colors[@]}; i++)); do
     else
         if [ "$current_hour" -lt "$hour" ] || ([ "$current_hour" -eq "$hour" ] && [ "$current_minute" -lt "$minute" ]); then
             echo "Color: #$color, Time: $hour:$minute"
+            # kernel >= 6.11 gates the keyboard light through the LED class
+            # (asus-nb-wmi): brightness 0 keeps it dark regardless of MCU color.
+            # Relight it once per boot only: the marker lives in /run (tmpfs,
+            # cleared on boot), so manual Fn-key/F2/F3 changes are not overridden
+            # by later runs of this script. The optional off-flag can be set
+            # by rogauracore_toggle.sh.
+            kbd_led=/sys/class/leds/asus::kbd_backlight/brightness
+            kbd_led_marker=/run/kbd_backlight_initialized
+            if [ -w "$kbd_led" ] && [ ! -f "$kbd_led_marker" ] \
+               && ! compgen -G "/run/user/*/kbd_backlight_off" > /dev/null; then
+                echo 3 > "$kbd_led"
+                touch "$kbd_led_marker"
+            fi
             rogauracore single_static $color
             break
         fi
