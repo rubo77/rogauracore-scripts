@@ -10,6 +10,14 @@ This script defines a set of colors, interpolates between them to create a smoot
 ./keyboard_backlight_daytime.sh [-h] [-t] [-s] [-c]
 ```
 
+## rogauracore_brightness_minus.sh
+
+decreases the brightness of the keyboard backlight by 1
+
+## rogauracore_brightness_plus.sh
+
+increases the brightness of the keyboard backlight by 1
+
 #### Options
 
 - `-h`: Display the help message

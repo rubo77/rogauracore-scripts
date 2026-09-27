@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# This script decreases the brightness of the keyboard backlight by 1
+
 # Define the path to the temporary file
 temp_file="/var/tmp/rogauracore_brightness"
 
 # Check if the temporary file exists
 if [ ! -f "$temp_file" ]; then
+    # Call rogauracore brightness 0 and store "0" in the temp file
     echo "0" > "$temp_file"
 fi
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script increases the brightness of the keyboard backlight by 1
+
 # Define the path to the temporary file
 temp_file="/var/tmp/rogauracore_brightness"
 
