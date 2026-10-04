@@ -36,6 +36,11 @@ cd /usr/local/sbin
 ln -s /path/to/keyboard_backlight_daytime.sh .
 ```
 
+4. Schedule the script to run periodically (e.g. cron or a systemd
+   timer). Run it as root only if you want it to also restore the
+   kernel LED brightness once per boot; for color changes alone,
+   a user cron job is enough.
+
 ### kernel LED class note
 
 On kernel >= 6.11 ASUS laptops expose `asus::kbd_backlight` as a LED class
